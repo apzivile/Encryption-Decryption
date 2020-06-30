@@ -1,13 +1,21 @@
 package encryptdecrypt;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String operation = scanner.nextLine();
-        String text = scanner.nextLine();
-        int key = scanner.nextInt();
+        String operation = "enc";
+        String text = "";
+        int key = 0;
+        for (int i = 0; i < args.length; i++) {
+            if ("-mode".equals(args[i])) {
+                operation = args[i + 1];
+            }
+            if ("-key".equals(args[i])) {
+                key = Integer.parseInt(args[i + 1]);
+            }
+            if ("-data".equals(args[i])) {
+                text = args[i + 1];
+            }
+        }
         if ("enc".equals(operation)) {
             encryption(text, key);
         }
