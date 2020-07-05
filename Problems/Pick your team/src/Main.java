@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 class SelectionContext {
 
@@ -20,36 +20,42 @@ interface PersonSelectionAlgorithm {
 
 class TakePersonsWithStepAlgorithm implements PersonSelectionAlgorithm {
 
-
-    public Person[] people;
+    public List<Person> people;
+    public int step;
 
     public TakePersonsWithStepAlgorithm(int step) {
-        for (int i =0; i < people.length;i++ ){
-            if (i%step==0){
-                System.out.println("hey");
-            }
-        }
+        this.step = step;
     }
 
     @Override
     public Person[] select(Person[] persons) {
-        this.people = persons;
-        return persons;
+        people = new ArrayList<>();
+        for (int i = 0; i < persons.length; i++) {
+            if (step == 1) {
+                people.add(persons[i]);
+            } else if (i % step == 0) {
+                people.add(persons[i]);
+            }
+        }
+        return people.toArray(new Person[0]);
     }
 
 }
 
 
 class TakeLastPersonsAlgorithm implements PersonSelectionAlgorithm {
+    public List<Person> people;
+    public int count;
 
     public TakeLastPersonsAlgorithm(int count) {
-
+        this.count = count;
     }
 
     @Override
     public Person[] select(Person[] persons) {
-        //for (int i =)
-        return persons;
+        people = new ArrayList<>();
+        people.addAll(Arrays.asList(persons).subList(persons.length - count, persons.length));
+        return people.toArray(new Person[0]);
     }
 }
 
